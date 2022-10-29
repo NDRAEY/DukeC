@@ -1,2 +1,2 @@
 # DukeC
-DukwC conversion utility in C
+DukeC conversion utility in C
