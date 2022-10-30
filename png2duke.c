@@ -63,7 +63,11 @@ int main(int argc, char** argv) {
 	// START HERE!
 	int modifer = 3;
 
-	FILE* dukefile = fopen("fyke.duke", "wb");
+	char* nyfile = malloc(strlen(file)+6);
+	strcpy(nyfile, file);
+	strcat(nyfile, ".duke");
+
+	FILE* dukefile = fopen(nyfile, "wb");
 
 	fwrite((unsigned short[]){
 		width, height
@@ -91,6 +95,8 @@ int main(int argc, char** argv) {
 	
 	fclose(fp);
 	fclose(dukefile);
+
+	free(nyfile);
 
 	printf("All OKAY! The file is ready!\n");
 	
