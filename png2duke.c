@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include "duke.h"
 
 int main(int argc, char** argv) {
 	printf("png2duke by NDRAEY (c) 2022\n\n");
@@ -69,12 +70,19 @@ int main(int argc, char** argv) {
 
 	FILE* dukefile = fopen(nyfile, "wb");
 
+	/*
 	fwrite((unsigned short[]){
 		width, height
 	}, 2, 2, dukefile);
 
 	fwrite((unsigned int[]){width*height*modifer}, 4, 1, dukefile);
 	fwrite((unsigned char[]){0}, 1, 1, dukefile);
+	*/
+
+	fwrite((&(DukeHeader_t){
+		{'D', 'U', 'K', 'E'},
+		width, height, width*height*modifer, 0
+	}), sizeof(DukeHeader_t), 1, dukefile);
 
 	for(int y=0; y<height; y++) {
 		png_bytep row = row_pointers[y];
